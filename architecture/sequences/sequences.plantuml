@@ -1,0 +1,190 @@
+@startuml Classic Client Registrtion
+title Classic Client Registrtion 
+actor "Клиент" as client 
+participant "Клиентское приложение" as clientWebApp
+participant API
+database "База данных" as db 
+client -> clientWebApp:Вводит данные для регистрации
+clientWebApp -> API: POST /RegisterClient
+API -> API: Validation 
+API -> db: select * from Users where Email = ""
+db --> API: null
+API -> API: HashPassword 
+API -> db: insert into Subject values (), insert into User values ()
+db --> API:OK
+API --> clientWebApp: 201 Created 
+clientWebApp --> client: Уведомление об успешной регистрации и переброс на вход
+@enduml
+
+
+
+@startuml Classic Get Token 
+title Classic Get Token 
+actor "Пользователь" as user
+participant "Приложение" as webApp
+participant API
+database "База данных" as db
+user -> webApp: Вводит логин + пароль
+webApp -> API: POST /login(login, pass, role)
+API -> db :select * from User where email = login and isPartner = true/false
+db --> API: HashedPassword 
+API -> API: VerifyPassword(password, hashedPassword)
+API -> API: CreateJWT(userId, role)
+API --> webApp: JWT token 
+@enduml 
+
+@startuml Open Client App
+title Open Client App
+actor "Клиент" as client 
+participant "Клиентское приложение" as webApp
+participant API
+database "База данных" as db
+webApp -> API: GET /services
+API -> db: select * from services 
+db --> API:services 
+API --> webApp: Json(listServices)
+webApp -> API: GET /subjectInfo(jwt)
+API -> API: ParseJWT(jwt) 
+API -> db: SELECT * FROM Users JOIN Subjects ON  User.SubjectId = Subjects.SubjectId WHERE UserId = userId 
+db --> API: subjectInfo 
+API --> webApp: Json(subjectInfo)
+webApp --> client: Открывает главную страницу клиентского проиложения 
+@enduml
+
+@startuml Open Partner App
+title Open Partner App
+actor "Партнер" as user
+participant "Партнерское приложение" as webApp
+participant API 
+database "База данных" as db
+webApp -> API: GET /subjectInfo(jwt)
+API -> API: ParseJWT(jwt) 
+API -> db: SELECT * FROM Users JOIN Subjects ON  User.SubjectId = Subjects.SubjectId WHERE UserId = userId
+db --> API: subjectInfo 
+API --> webApp: Json(subjectInfo)
+webApp --> user: Открывает главную страницу партнерского приложения 
+@enduml
+
+@startuml Password Recovery
+title Password Recovery
+actor "Пользователь" as user
+participant "Приложение" as webApp
+participant API
+database "База данных" as db
+user -> webApp: нажимает кнопку восстановить пароль
+webApp -> API: POST changePassword(jwt)
+API -> API: ParseJWT(jwt)
+API -> API: GenerateCode()
+API -> API: SendCode(email)
+API -> db: UPDATE User SET EmailCode = code WHERE UserId = userId
+API --> webApp: 200 OK, Code sent to email
+webApp --> user: Открывает страницу куда нужно ввести код
+user -> webApp: вводит полученный на почту код 
+webApp -> API: PUT validateCode(jwt, code)
+API -> API: ParseJWT(jwt)
+API -> db: SELECT UserId FROM Users WHERE EmailCode = code 
+db --> API: userID 
+API -> API: userIdValidate
+API --> webApp: 200 OK
+webApp --> user: Открывает старицу смены пароля
+user -> webApp: вводит новый пароль 
+webApp -> webApp: валидация пароля
+webApp -> API: PUT changePassword(jwt, newPassword)
+API -> API: ParseJWT(jwt)
+API -> API: HashPassword(jwt)
+API -> db: UPDATE User SET HashedPassword = newPass, EmailCode = null WHERE UserId = userId
+db --> API: OK
+API --> webApp: 200 OK
+webApp --> user: выводит сообщение о успешеной смены пароля и открывает страницу ввода п=логина и пароля 
+@enduml
+
+
+@startuml ClientCreate Order
+title ClientCreate Order
+actor "Клиент" as user
+participant "Клиентское приложение" as webApp
+participant API 
+database "База данных" as db
+user -> webApp: выбрал время, услуги и нажал кнопку "готово"
+webApp -> API: GET /slots(dateTime, serviceType, jwt)
+API -> API:ParseJWT(jwt)
+API -> db: автомойки и их брони на выбранный день, если есть связь с выбранной услугой 
+db --> API: listSlots(включается сбея данные из carWashes и Orders)
+API -> API: chekSlots(listSlots, serviceTime, orderTime)
+API --> webApp: ListDTOs{carWashe + order}
+webApp --> user: показывает точки на карте 
+user -> webApp: Нажимает на точку на карте 
+webApp --> user: Открывает окно с данными заявки 
+user -> webApp: Нажимает "забронировать"
+webApp -> API: POST /createOrder(DTO, jwt)
+API -> API:ParseJWT(jwt)
+API -> db: Insert into Orders 
+db --> API: OK
+API --> webApp: 201 Created
+webApp --> user: сообщение "бронь создана"
+@enduml
+
+@startuml Client Chek Oreder 
+title Client Chek Oreder 
+actor "Клиент" as user
+participant "Клиентское приложение" as webApp
+participant API 
+database "База данных" as db
+user -> webApp: нажал на кнопку входа в лк
+webApp -> API: GET /clientOrders(jwt)
+API -> API:ParseJWT(jwt)
+API -> db: SELECT * FROM Orders JOIN CarWash ON  Orders.CarWachID = CarWash.CarWasID WHERE UserId = Orsers.ClientId
+db --> API: request data
+API --> webApp: Json(listDTOs)
+webApp -> user: показывает брони клиента 
+@enduml
+
+@startuml Client Chek User Info 
+title Client Chek User Info 
+actor "Клиент" as user
+participant "Клиентское приложение" as webApp
+participant API 
+database "База данных" as db
+user -> webApp: нажал на конопку "подробнее" в лк
+webApp -> API: GET /subject/info(jwt)
+API -> API: ParseJWT(jwt)
+API -> db: SELECT * FROM Subject JOIN  User ON User.SubjectID = Subject.SubjectID  WHERE UserID = User.UserID
+db --> API: response data 
+API -> API: create DTO
+API --> webApp: Json(listDTOs)
+webApp --> user: выводит данные о пользователе 
+@enduml
+
+@startuml Partner View Carwash Orders
+title Partner View Carwash Orders 
+actor "Партнер" as user
+participant "Партнерское приложение" as webApp
+participant API 
+database "База данных" as db
+user -> webApp: Выбрал дату по которой посмотреть брони
+webApp -> API: GET /carwashOrders(jwt, date)
+API -> API: ParseJWT(jwt)
+API -> db: по carWashID и дате получить все данные из Orders + user.name +user.lustname
+db --> API: response data 
+API -> API: create DTO 
+API --> webApp: Json(listDtos) 
+webApp --> user: выводит таблицу заявок на данную дату  
+
+@enduml
+
+@startuml Partner Confirm Order 
+title Partner Confirm Order
+actor "Партнер" as user
+participant "Партнерское приложение" as webApp
+participant API 
+database "База данных" as db
+user -> webApp: нажал на галочку/крестик напротив заявки
+webApp --> user: Переспросить, уверен ли юзер в своем решении
+user -> webApp: уверен
+webApp -> API: PUT /orders/status(jwt, orderID, state) 
+API -> API: ParseJWT(jwt)
+API -> db: UPDATE Orders SET State = state WHERE OrderID = orderID 
+db --> API: OK 
+API --> webApp: 200 OK
+webApp -> user: Собщение что заявка одобрена / отклонена 
+@enduml
