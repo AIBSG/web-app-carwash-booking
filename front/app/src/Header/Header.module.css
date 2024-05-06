@@ -1,0 +1,13 @@
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 60px 0 60px;
+}
+.logo{
+
+}
+.dataName{
+    display: flex;
+    flex-direction: row;
+}

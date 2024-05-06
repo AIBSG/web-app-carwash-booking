@@ -1,0 +1,97 @@
+.pageContent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.mainSelector{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.selectorContainer{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 500px;
+    height: 500px;
+
+}
+.tabs{
+    margin-bottom: 10px;
+
+}
+.tabsItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+
+
+}
+.tabsItemTitle{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent; ;
+    border-bottom-color: gray;
+    width: 250px;
+}
+.tabsContent:last-child{
+    margin-right: 0;
+}
+.tabsContentContainer{
+
+}
+.tabsContentItem{
+    display: flex;
+    flex-direction: column;
+}
+.tabsContentButton{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 130px;
+    margin-bottom: 10px;
+
+    border-radius:10px;
+    border: 1px solid transparent;
+    width: 400px;
+}
+.tabsContentButton:last-child{
+    margin-bottom: 0;
+}
+.tabsContentItemText{
+    width: 200px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dataAndTime{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+h3{
+    margin: 0;
+}
+.textTime{
+    padding: 4px 0 0 0;
+}
+.content{
+    display: none;
+}
+.showContent{
+    display: block;
+}
+
