@@ -1,0 +1,96 @@
+.secondModalPage{
+    display: none;
+}
+.showSecondModalPage{
+    display: block;
+}
+.modalContainer{
+
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.13);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modalContent{
+
+    padding: 40px;
+    border-radius: 25px;
+    background-color: white;
+}
+.loginTitleText{
+    padding: 0 0 35px 0;
+    font-size: 30px;
+}
+.loginItems{
+    margin-bottom: 30px;
+}
+.loginItems:last-child{
+    margin: 0;
+}
+.prePlaceholderText{
+    color: #AAAAAA;
+    margin-bottom: 10px;
+}
+.writePasswordContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.placeholderContainer{
+    width: 566px;
+    height: 57px;
+    border-radius: 15px;
+    border: 1px solid #D5D5D5;
+    outline: none;
+
+
+}
+.placeholderContainer::placeholder{
+    color: #AAAAAA;
+
+}
+input{
+    padding: 0 20px;
+}
+
+.loginButtonContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.forgotPassword{
+    margin-top: 5px;
+    display: flex;
+    justify-content: end;
+    border: none;
+    background-color: white;
+    font-size: 10px;
+    color: blue;
+    cursor: pointer;
+}
+.loginButton{
+    border: none;
+    border-radius: 25px;
+    width: 133px;
+    height: 44px;
+    background-color: #AAAAAA;
+    cursor: pointer;
+
+}
+.toRegistrationContainer{
+    font-size: 15px;
+
+}
+.toRegistration{
+    border: none;
+    background-color: white;
+    color: blue;
+    cursor: pointer;
+}

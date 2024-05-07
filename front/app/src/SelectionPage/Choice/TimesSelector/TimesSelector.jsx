@@ -1,5 +1,6 @@
 import React from "react";
 import choice from "../Choice";
+import classes from "./TimesSelector.module.css";
 
 export default class TimesSelector extends React.Component{
     static defaultProps = {
@@ -18,12 +19,12 @@ export default class TimesSelector extends React.Component{
 
         return (
             <div>
-                <select name="" id="">
+                <select className={classes.selectorContent} name="" id="">
                     {hours.map((name, index) =>
                         <option key={name} value={index}>{name}</option>
                     )}
                 </select>
-                <select name="" id="">
+                <select className={classes.selectorContent} name="" id="">
                     {minutes.map((name, index) =>
                         <option key={name} value={index}>{name}</option>
                     )}

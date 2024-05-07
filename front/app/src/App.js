@@ -8,10 +8,10 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 function App() {
   return (
       <div>
-          <SelectionPage/>
-
+          <RegistrationPage/>
           {/*<SettingsPage/> */}
-
+          {/*<SelectionPage/> */}
+          {/*<SelectionPage/> */}
       </div>
   );
 }

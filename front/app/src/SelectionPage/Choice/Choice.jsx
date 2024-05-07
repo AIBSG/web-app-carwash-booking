@@ -1,16 +1,13 @@
 import {useState} from "react";
 import React, {Component} from "react";
 import classes from "./Choise.module.css";
-import {Col, Container, Nav, Row, TabContainer, TabContent, TabPane} from "react-bootstrap";
-import {getCLS} from "web-vitals";
-import {Tabs, TabList, TabPanel, Tab} from 'react-tabs';
+
 import Calendar from "react-calendar";
 import '../../Calendar.css'
 
 import TimesSelector from "./TimesSelector/TimesSelector";
 import {YMaps, Map} from "@pbe/react-yandex-maps";
-import Header from "../../Header/Header";
-import tab from "bootstrap/js/src/tab";
+
 
 
 const Choice = () => {
@@ -21,17 +18,15 @@ const Choice = () => {
         setToggle(id)
     }
 
-
-
     return (
-        <div>
+        <div className={classes.pageContainer}>
             <div className={classes.pageContent}>
                 <div className={classes.mainSelector}>
                     <div className={classes.selectorContainer}>
                         <div className={classes.tabs}>
                             <ul className={classes.tabsItem}>
-                                <li className={classes.tabsItemTitle}>Услуги</li>
-                                <li className={classes.tabsItemTitle}>Дата и время</li>
+                                <li className={toggle===2 ? classes.tabsItemTitle : classes.tabsItemTitleActive}>Услуги</li>
+                                <li className={toggle===1 ? classes.tabsItemTitle : classes.tabsItemTitleActive}>Дата и время</li>
                             </ul>
                         </div>
                         <div className={toggle === 1 ? classes.showContent : classes.content}>
@@ -69,8 +64,10 @@ const Choice = () => {
                         </div>
                         <div className={toggle === 2 ? classes.showContent : classes.content}>
                             <div className={classes.dataAndTime}>
+                                <div className={classes.calendarContainer}>
                                 <Calendar onChange={onChangeCalendar} value={calendarValue}
                                           className={classes.calendar}/>
+                                </div>
                                 <div>
                                     <p>Подъеду в</p>
                                     <div>
@@ -81,16 +78,14 @@ const Choice = () => {
                         </div>
                     </div>
                     <div>
-                        <button onClick={() => updateToggle(2)}>Далее
-                        </button>
-                        <button onClick={() => updateToggle(1)}>Назад
-                        </button>
+                        <button className={toggle === 1 ? classes.showContentButtonNext : classes.contentButton} onClick={() => updateToggle(2)}>Далее</button>
+                        <button className={toggle === 2 ? classes.showContentButtonPrev : classes.contentButton} onClick={() => updateToggle(1)}>Назад</button>
                     </div>
                 </div>
                 <div>
                     <YMaps>
                         <div>
-                            <Map defaultState={{center: [55.75, 37.57], zoom: 9}}/>
+                            <Map className={classes.mapContainer} defaultState={{center: [56.85, 60.57], zoom: 10}}/>
                         </div>
                     </YMaps>
                 </div>
