@@ -7,7 +7,7 @@ namespace CarWashBookingAPI.Models
         public CarWash CarWash { get; set; }
         public User Client { get; set; }
         public Service Service { get; set; }
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public OrderState OrderState { get; set; }
