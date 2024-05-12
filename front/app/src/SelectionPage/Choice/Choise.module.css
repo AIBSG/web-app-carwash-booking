@@ -1,0 +1,156 @@
+.pageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
+}
+.pageContent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.mainSelector{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.selectorContainer{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 500px;
+    height: 500px;
+
+}
+.tabs{
+    margin-bottom: 10px;
+    width: 400px;
+
+}
+.tabsItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+
+
+}
+.tabsItemTitle{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent; ;
+    border-bottom-color: gray;
+    width: 250px;
+}
+.tabsItemTitleActive{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent; ;
+    border-bottom-color: gray;
+    width: 250px;
+    box-shadow: 0 0.4px 0 0;
+}
+.tabsContent:last-child{
+    margin-right: 0;
+}
+.tabsContentContainer{
+
+}
+.tabsContentItem{
+    display: flex;
+    flex-direction: column;
+}
+.tabsContentButton{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 130px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius:10px;
+    border: 1px solid transparent;
+    width: 400px;
+}
+.tabsContentButton:last-child{
+    margin-bottom: 0;
+}
+.tabsContentButton:focus{
+    box-shadow: 0 2px 7px 0.1px;
+}
+.tabsContentItemText{
+    width: 200px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dataAndTime{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.calendarContainer{
+    margin-right: 60px;
+}
+h3{
+    margin: 0;
+}
+.textTime{
+    padding: 4px 0 0 0;
+}
+.buttonNext{
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    width: 134px;
+    height: 56px;
+}
+.content{
+    display: none;
+}
+.showContent{
+    display: block;
+}
+.mapContainer{
+    overflow: hidden;
+    border-radius: 25px;
+    width: 395px;
+    height: 500px;
+    margin-top: -50px;
+}
+.contentButton{
+    display: none;
+}
+.showContentButtonNext{
+    display: block;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    width: 134px;
+    height: 56px;
+}
+.showContentButtonPrev{
+    display: block;
+    background: none;
+    border: 0.05px solid;
+
+    cursor: pointer;
+    border-radius: 25px;
+    width: 134px;
+    height: 56px;
+}
+
+
